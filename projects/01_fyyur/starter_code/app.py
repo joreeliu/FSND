@@ -65,12 +65,9 @@ class Show(db.Model):
   __tablename__ = 'Show'
 
   id = db.Column(db.Integer, primary_key=True)
-  artisit_id = db.Column(db.Integer, unique=True)
-  venue_id = db.Column(db.Integer, unique=True)
+  artisit_id = db.Column(db.Integer, db.ForeignKey('Artist.id'), unique=True)
+  venue_id = db.Column(db.Integer, db.ForeignKey('Venue.id'), unique=True)
   start_time = db.Column(db.DateTime)
-
-  artisit = relationship('Artist', foreign_keys='Show.artisit_id')
-  venue = relationship('Venue', foreign_keys='Show.venue_id')
 
 #----------------------------------------------------------------------------#
 # Filters.
