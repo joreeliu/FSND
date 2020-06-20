@@ -44,14 +44,14 @@ Genres_Artists = db.Table('Genres_Artists',
 class Genre(db.Model):
     __tablename__ = 'Genre'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    name = db.Column(db.String, unique=True)
 
 
 class Venue(db.Model):
     __tablename__ = 'Venue'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    name = db.Column(db.String, unique=True)
     city = db.Column(db.String(120))
     state = db.Column(db.String(120))
     address = db.Column(db.String(120))
@@ -61,7 +61,7 @@ class Venue(db.Model):
     website = db.Column(db.String(120))
     seeking_talent = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
-    genres = db.relationship('Genre', secondary=Genres_Venue, backref=db.backref('genres', lazy=True))
+    genres_venues = db.relationship('Genre', secondary=Genres_Venue, backref=db.backref('genres_venues', lazy=True))
 
 
 class Artist(db.Model):
@@ -78,8 +78,7 @@ class Artist(db.Model):
     website = db.Column(db.String(120))
     seeking_venue = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
-    genres = db.Column(db.String(500))
-    #genres = db.relationship('Genres', secondary = Genres_Venue, backref=db.backref('orders', lazy=True))
+    genres_artists = db.relationship('Genre', secondary=Genres_Artists, backref=db.backref('genres_artists', lazy=True))
 
 
 
@@ -136,7 +135,8 @@ def index():
 def venues():
   # TODO: replace with real venues data.
   #       num_shows should be aggregated based on number of upcoming shows per venue.
-   Venue.query.join('generes')
+  #Venue.query.join('generes')
+
   data=[{
     "city": "San Francisco",
     "state": "CA",
@@ -158,6 +158,7 @@ def venues():
       "num_upcoming_shows": 0,
     }]
   }]
+
   return render_template('pages/venues.html', areas=data);
 
 @app.route('/venues/search', methods=['POST'])
@@ -276,15 +277,21 @@ def create_venue_submission():
     city = request.form.get('city')
     state = request.form.get('state')
     phone = request.form.get('phone')
-    genres = request.form.get('genres')
+    genres = request.form.getlist('genres')
     address = request.form.get('address')
     facebook_link = request.form.get('facebook_link')
 
-    venue = Venue(name=name, city=city, state=state, phone=phone, genres=genres, address=address, facebook_link=facebook_link)
+    venue = Venue(name=name, city=city, state=state, phone=phone, address=address, facebook_link=facebook_link)
+    for genre in genres:
+      g = db.session.query(Genre).filter(Genre.name == genre).first()
+      if not g:
+        g = Genre(name=genre)
+      venue.genres_venues.append(g)
     db.session.add(venue)
     db.session.commit()
 
-  except:
+  except Exception as e:
+    print(e)
     error = True
     db.session.rollback()
     flash('An error occurred. Venue ' + request.form['name'] + ' could not be listed.')
