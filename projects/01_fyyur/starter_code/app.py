@@ -448,18 +448,36 @@ def show_artist(artist_id):
   data['phone'] = artist_.phone
   data['state'] = artist_.state
   data['website'] = artist_.website
+  data['facebook_link'] = artist_.facebook_link
+  data['seeking_venue'] = artist_.seeking_venue
+  data['seeking_description'] = artist_.seeking_description
   data['genres'] = []
   data['past_shows'] = []
+  data['upcoming_shows'] = []
+
+  past_shows = 0
+  future_shows = 0
+
   for g in artist_.genres_artists:
     data['genres'].append(g.name)
   for s in artist_.show_artist:
+    tmp_start_time = s.start_time
+    if tmp_start_time < datetime.now():
+      show_type = 'past_shows'
+      past_shows += 1
+    else:
+      show_type = 'upcoming_shows'
+      future_shows += 1
     tmp_show = {}
     tmp_venue = s.venue_show[0]
     tmp_show['venue_id'] = tmp_venue.id
     tmp_show['venue_name'] = tmp_venue.name
     tmp_show['venue_image_link'] = tmp_venue.image_link
-    tmp_show['start_time'] = s.start_time.strftime('%Y-%m-%dT%H:%M:%SZ')
-    data['past_shows'].append(tmp_show)
+    tmp_show['start_time'] = tmp_start_time.strftime('%Y-%m-%dT%H:%M:%SZ')
+    data[show_type].append(tmp_show)
+
+  data['past_shows_count'] = past_shows
+  data['upcoming_shows_count'] = future_shows
 
   return render_template('pages/show_artist.html', artist=data)
 
