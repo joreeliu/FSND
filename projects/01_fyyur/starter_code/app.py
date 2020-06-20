@@ -5,7 +5,7 @@
 import json
 import dateutil.parser
 import babel
-from flask import Flask, render_template, request, Response, flash, redirect, url_for
+from flask import Flask, render_template, request, Response, flash, redirect, url_for, jsonify
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 import logging
@@ -354,6 +354,7 @@ def search_artists():
 def show_artist(artist_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id
+  '''
   data1={
     "id": 4,
     "name": "Guns N Petals",
@@ -426,6 +427,22 @@ def show_artist(artist_id):
     "upcoming_shows_count": 3,
   }
   data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
+  '''
+  res = db.session.query(Artist, Show).join(Artist.genres_artists).join(Show).filter(Artist.id == artist_id).first()
+  artist_ = res[0]
+  show_ = res[1]
+  data = {}
+  data['id'] = artist_.id
+  data['name'] = artist_.name
+  data['city'] = artist_.city
+  data['image_link'] = artist_.image_link
+  data['phone'] = artist_.phone
+  data['state'] = artist_.state
+  data['website'] = artist_.website
+  data['genres'] = []
+  for g in artist_.genres_artists:
+    data['genres'].append(g.name)
+
   return render_template('pages/show_artist.html', artist=data)
 
 #  Update
