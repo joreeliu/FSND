@@ -458,7 +458,7 @@ def show_artist(artist_id):
     tmp_show['venue_id'] = tmp_venue.id
     tmp_show['venue_name'] = tmp_venue.name
     tmp_show['venue_image_link'] = tmp_venue.image_link
-    #tmp_show['start_time'] = str(s.start_time)
+    tmp_show['start_time'] = s.start_time.strftime('%Y-%m-%dT%H:%M:%SZ')
     data['past_shows'].append(tmp_show)
 
   return render_template('pages/show_artist.html', artist=data)
