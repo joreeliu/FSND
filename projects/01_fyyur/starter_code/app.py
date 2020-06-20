@@ -33,23 +33,23 @@ migrate = Migrate(app, db)
 #----------------------------------------------------------------------------#
 
 Genres_Venue = db.Table('Genres_Venue',
-  db.Column('venue_id', db.Integer, db.ForeignKey('Venue.id'), primary_key=True),
-  db.Column('genre_id', db.Integer, db.ForeignKey('Genre.id'), primary_key=True)
+  db.Column('venue_id', db.Integer, db.ForeignKey('Venue.id', ondelete='CASCADE'), primary_key=True),
+  db.Column('genre_id', db.Integer, db.ForeignKey('Genre.id', ondelete='CASCADE'), primary_key=True)
                          )
 
 Genres_Artists = db.Table('Genres_Artists',
-  db.Column('artist_id', db.Integer, db.ForeignKey('Artist.id'), primary_key=True),
-  db.Column('genre_id', db.Integer, db.ForeignKey('Genre.id'), primary_key=True)
+  db.Column('artist_id', db.Integer, db.ForeignKey('Artist.id', ondelete='CASCADE'), primary_key=True),
+  db.Column('genre_id', db.Integer, db.ForeignKey('Genre.id', ondelete='CASCADE'), primary_key=True)
                           )
 
 Venue_Show = db.Table('Venue_Show',
-  db.Column('venue_id', db.Integer, db.ForeignKey('Venue.id'), primary_key=True),
-  db.Column('show_id', db.Integer, db.ForeignKey('Show.id'), primary_key=True)
+  db.Column('venue_id', db.Integer, db.ForeignKey('Venue.id', ondelete='CASCADE'), primary_key=True),
+  db.Column('show_id', db.Integer, db.ForeignKey('Show.id', ondelete='CASCADE'), primary_key=True)
                           )
 
 Artist_Show = db.Table('Artist_Show',
-  db.Column('artist_id', db.Integer, db.ForeignKey('Artist.id'), primary_key=True),
-  db.Column('show_id', db.Integer, db.ForeignKey('Show.id'), primary_key=True)
+  db.Column('artist_id', db.Integer, db.ForeignKey('Artist.id', ondelete='CASCADE'), primary_key=True),
+  db.Column('show_id', db.Integer, db.ForeignKey('Show.id', ondelete='CASCADE'), primary_key=True)
                        )
 
 
@@ -74,7 +74,7 @@ class Venue(db.Model):
     seeking_talent = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
 
-    genres_venues = db.relationship('Genre', secondary=Genres_Venue, backref=db.backref('genres_venues', lazy=True))
+    genres_venues = db.relationship('Genre', secondary=Genres_Venue, backref=db.backref('genres_venues', lazy=True), cascade='all, delete')
 
 
 class Artist(db.Model):
@@ -90,8 +90,8 @@ class Artist(db.Model):
     website = db.Column(db.String(120))
     seeking_venue = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
-    genres_artists = db.relationship('Genre', secondary=Genres_Artists, backref=db.backref('genres_artists', lazy=True))
-    artist_show = db.relationship('Show', secondary=Artist_Show, backref=db.backref('artist_show', lazy=True))
+    genres_artists = db.relationship('Genre', secondary=Genres_Artists, backref=db.backref('genres_artists', lazy=True), cascade='all, delete')
+    artist_show = db.relationship('Show', secondary=Artist_Show, backref=db.backref('artist_show', lazy=True), cascade='all, delete')
 
 
 class Show(db.Model):
@@ -101,8 +101,8 @@ class Show(db.Model):
 
   start_time = db.Column(db.DateTime)
 
-  venue_show = db.relationship('Venue', secondary=Venue_Show, backref=db.backref('venue_show', lazy=True))
-  show_artist = db.relationship('Artist', secondary=Artist_Show, backref=db.backref('show_artist', lazy=True))
+  venue_show = db.relationship('Venue', secondary=Venue_Show, backref=db.backref('venue_show', lazy=True), cascade="all,delete")
+  show_artist = db.relationship('Artist', secondary=Artist_Show, backref=db.backref('show_artist', lazy=True), cascade="all,delete")
 
 
 # class Genres(db.Model):
