@@ -90,6 +90,7 @@ class Artist(db.Model):
     seeking_venue = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
     genres_artists = db.relationship('Genre', secondary=Genres_Artists, backref=db.backref('genres_artists', lazy=True))
+    artist_show = db.relationship('Show', secondary=Artist_Show, backref=db.backref('artist_show', lazy=True))
 
 
 class Show(db.Model):
@@ -100,7 +101,7 @@ class Show(db.Model):
   start_time = db.Column(db.DateTime)
 
   venue_show = db.relationship('Venue', secondary=Venue_Show, backref=db.backref('venue_show', lazy=True))
-  artist_show = db.relationship('Artist', secondary=Artist_Show, backref=db.backref('artist_show', lazy=True))
+  show_artist = db.relationship('Artist', secondary=Artist_Show, backref=db.backref('show_artist', lazy=True))
 
 
 # class Genres(db.Model):
@@ -437,9 +438,8 @@ def show_artist(artist_id):
   }
   data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
   '''
-  res = db.session.query(Artist, Show).join(Artist.genres_artists).join(Show).filter(Artist.id == artist_id).first()
-  artist_ = res[0]
-  show_ = res[1]
+  res = db.session.query(Artist).join(Artist.genres_artists).join(Artist.artist_show).filter(Artist.id == artist_id).first()
+  artist_ = res
   data = {}
   data['id'] = artist_.id
   data['name'] = artist_.name
@@ -449,8 +449,17 @@ def show_artist(artist_id):
   data['state'] = artist_.state
   data['website'] = artist_.website
   data['genres'] = []
+  data['past_shows'] = []
   for g in artist_.genres_artists:
     data['genres'].append(g.name)
+  for s in artist_.show_artist:
+    tmp_show = {}
+    tmp_venue = s.venue_show[0]
+    tmp_show['venue_id'] = tmp_venue.id
+    tmp_show['venue_name'] = tmp_venue.name
+    tmp_show['venue_image_link'] = tmp_venue.image_link
+    #tmp_show['start_time'] = str(s.start_time)
+    data['past_shows'].append(tmp_show)
 
   return render_template('pages/show_artist.html', artist=data)
 
@@ -625,7 +634,7 @@ def create_show_submission():
       logging.error('venue doesnt exist!')
       raise
 
-    show.artist_show.append(a)
+    show.show_artist.append(a)
     show.venue_show.append(v)
 
     db.session.add(show)
