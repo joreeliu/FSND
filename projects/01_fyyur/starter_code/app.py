@@ -14,6 +14,7 @@ from flask_wtf import Form
 from forms import *
 from flask_migrate import Migrate
 from sqlalchemy.orm import relationship
+from sqlalchemy import func
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -364,6 +365,24 @@ def search_artists():
   # TODO: implement search on artists with partial string search. Ensure it is case-insensitive.
   # seach for "A" should return "Guns N Petals", "Matt Quevado", and "The Wild Sax Band".
   # search for "band" should return "The Wild Sax Band".
+  search_term = request.form.get('search_term')
+
+  res = db.session.query(Artist).join(Artist.artist_show).filter(Artist.name.ilike(f'%{search_term}%')).all()
+
+  response = {}
+  response['count'] = len(res)
+  response['data'] = []
+  for r in res:
+    tmp_dct = {}
+    tmp_dct['id'] = r.id
+    tmp_dct['name'] = r.name
+    tmp_dct['num_upcoming_shows'] = 0
+    for s in r.show_artist:
+      if s.start_time >= datetime.now():
+        tmp_dct['num_upcoming_shows'] += 1
+    response['data'].append(tmp_dct)
+
+  '''
   response={
     "count": 1,
     "data": [{
@@ -372,6 +391,7 @@ def search_artists():
       "num_upcoming_shows": 0,
     }]
   }
+  '''
   return render_template('pages/search_artists.html', results=response, search_term=request.form.get('search_term', ''))
 
 @app.route('/artists/<int:artist_id>')
@@ -452,6 +472,7 @@ def show_artist(artist_id):
   data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
   '''
   res = db.session.query(Artist).join(Artist.genres_artists).join(Artist.artist_show).filter(Artist.id == artist_id).first()
+
   artist_ = res
   data = {}
   data['id'] = artist_.id
@@ -487,6 +508,7 @@ def show_artist(artist_id):
     tmp_show['venue_name'] = tmp_venue.name
     tmp_show['venue_image_link'] = tmp_venue.image_link
     tmp_show['start_time'] = tmp_start_time.strftime('%Y-%m-%dT%H:%M:%SZ')
+    #tmp_show['start_time'] = str(format_datetime(tmp_start_time))
     data[show_type].append(tmp_show)
 
   data['past_shows_count'] = past_shows
