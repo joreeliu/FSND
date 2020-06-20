@@ -687,86 +687,11 @@ def edit_venue(venue_id):
     "image_link": "https://images.unsplash.com/photo-1543900694-133f37abaaa5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60"
   }
   # TODO: populate form with values from venue with ID <venue_id>
-  res = db.session.query(Venue).filter(Venue.id == venue_id).first()
-  venue = {}
-  venue['id'] = res.id
-  venue['name'] = res.name
-  venue['city'] = res.city
-  venue['state'] = res.state
-  venue['address'] = res.address
-  venue['phone'] = res.phone
-  venue['website'] = res.website
-  venue['facebook_link'] = res.facebook_link
-  venue['seeking_talent'] = res.seeking_talent
-  venue['image_link'] = res.image_link
-  venue['genres'] = []
-  for g in res.genres_venues:
-    venue['genres'].append(g.name)
-
-  form.name.data = venue['name']
-  form.city.data = venue['city']
-  form.state.data = venue['state']
-  form.phone.data = venue['phone']
-  form.genres.data = venue['genres']
-  form.seeking_talent.data = venue['seeking_talent']
-  form.website.data = venue['website']
-  form.image_link.data = venue['image_link']
-  form.facebook_link.data = venue['facebook_link']
-
   return render_template('forms/edit_venue.html', form=form, venue=venue)
 
 @app.route('/venues/<int:venue_id>/edit', methods=['POST'])
 def edit_venue_submission(venue_id):
   # TODO: take values from the form submitted, and update existing
-  # artist record with ID <artist_id> using the new attributes
-  name = request.form.get('name')
-  city = request.form.get('city')
-  state = request.form.get('state')
-  phone = request.form.get('phone')
-  genres = request.form.getlist('genres')
-  seeking_talent = True if request.form.get('seeking_talent') == 'y' else False
-  website = request.form.get('website')
-  image_link = request.form.get('image_link')
-  facebook_link = request.form.get('facebook_link')
-
-  res = db.session.query(Venue).filter(Venue.id == venue_id).first()
-  if res:
-    res.name = name
-    res.city = city
-    res.state = state
-    res.phone = phone
-    res.facebook_link = facebook_link
-    res.seeking_talent = seeking_talent
-    res.website = website
-    res.image_link = image_link
-    new_genres = []
-
-
-    for gname in genres:
-      g = db.session.query(Genre).filter(Genre.name == gname).first()
-      if g:
-        new_genres.append(g)
-      else:
-        new_genres.append(Genre(name=gname))
-
-    res.genres_venues = new_genres
-  else:
-    raise
-
-  try:
-    error = False
-    db.session.add(res)
-    db.session.commit()
-  except Exception as e:
-    logging.error(e)
-    error = True
-    db.session.rollback()
-    flash('An error occurred. Venue ' + request.form['name'] + ' could not be updated.')
-  finally:
-    db.session.close()
-  if not error:
-    # on successful db insert, flash success
-    flash('Venue ' + request.form['name'] + ' was successfully updated!')
   # venue record with ID <venue_id> using the new attributes
   return redirect(url_for('show_venue', venue_id=venue_id))
 
