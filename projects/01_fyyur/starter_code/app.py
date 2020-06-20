@@ -536,7 +536,8 @@ def edit_artist(artist_id):
   }
 
 
-  # TODO: populate form with fields from artist with ID <artist_id>
+  # DO: populate form with fields from artist with ID <artist_id>
+
   res = db.session.query(Artist).filter(Artist.id == artist_id).first()
   artist = {}
   artist['id'] = res.id
@@ -565,6 +566,47 @@ def edit_artist(artist_id):
 def edit_artist_submission(artist_id):
   # TODO: take values from the form submitted, and update existing
   # artist record with ID <artist_id> using the new attributes
+  name = request.form.get('name')
+  city = request.form.get('city')
+  state = request.form.get('state')
+  phone = request.form.get('phone')
+  genres = request.form.getlist('genres')
+  facebook_link = request.form.get('facebook_link')
+
+  res = db.session.query(Artist).filter(Artist.id == artist_id).first()
+  if res:
+    res.name = name
+    res.city = city
+    res.state = state
+    res.phone = phone
+    res.facebook_link = facebook_link
+    new_genres = []
+
+    for gname in genres:
+      g = db.session.query(Genre).filter(Genre.name == gname).first()
+      if g:
+        new_genres.append(g)
+      else:
+        new_genres.append(Genre(name=gname))
+
+    res.genres_artists = new_genres
+  else:
+    raise
+
+  try:
+    error = False
+    db.session.add(res)
+    db.session.commit()
+  except Exception as e:
+    logging.error(e)
+    error = True
+    db.session.rollback()
+    flash('An error occurred. Artist ' + request.form['name'] + ' could not be updated.')
+  finally:
+    db.session.close()
+  if not error:
+    # on successful db insert, flash success
+    flash('Artist ' + request.form['name'] + ' was successfully updated!')
 
   return redirect(url_for('show_artist', artist_id=artist_id))
 
