@@ -367,7 +367,7 @@ def search_artists():
   # search for "band" should return "The Wild Sax Band".
   search_term = request.form.get('search_term')
 
-  res = db.session.query(Artist).join(Artist.artist_show).filter(Artist.name.ilike(f'%{search_term}%')).all()
+  res = db.session.query(Artist).join(Artist.artist_show, isouter=True).filter(Artist.name.ilike(f'%{search_term}%')).all()
 
   response = {}
   response['count'] = len(res)
@@ -471,7 +471,7 @@ def show_artist(artist_id):
   }
   data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
   '''
-  res = db.session.query(Artist).join(Artist.genres_artists).join(Artist.artist_show).filter(Artist.id == artist_id).first()
+  res = db.session.query(Artist).join(Artist.genres_artists, isouter=True).join(Artist.artist_show, isouter=True).filter(Artist.id == artist_id).first()
 
   artist_ = res
   data = {}
@@ -559,6 +559,10 @@ def edit_artist(artist_id):
   form.state.data = artist['state']
   form.phone.data = artist['phone']
   form.genres.data = artist['genres']
+  form.seeking_venue.data = artist['seeking_venue']
+  form.seeking_description.data = artist['seeking_description']
+  form.website.data = artist['website']
+  form.image_link.data = artist['image_link']
   form.facebook_link.data = artist['facebook_link']
   return render_template('forms/edit_artist.html', form=form, artist=artist)
 
@@ -571,6 +575,10 @@ def edit_artist_submission(artist_id):
   state = request.form.get('state')
   phone = request.form.get('phone')
   genres = request.form.getlist('genres')
+  seeking_venue = True if request.form.get('seeking_venue') == 'y' else False
+  seeking_description = request.form.get('seeking_description')
+  website = request.form.get('website')
+  image_link = request.form.get('image_link')
   facebook_link = request.form.get('facebook_link')
 
   res = db.session.query(Artist).filter(Artist.id == artist_id).first()
@@ -580,7 +588,12 @@ def edit_artist_submission(artist_id):
     res.state = state
     res.phone = phone
     res.facebook_link = facebook_link
+    res.seeking_venue = seeking_venue
+    res.seeking_description = seeking_description
+    res.website = website
+    res.image_link = image_link
     new_genres = []
+
 
     for gname in genres:
       g = db.session.query(Genre).filter(Genre.name == gname).first()
