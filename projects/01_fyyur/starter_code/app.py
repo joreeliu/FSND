@@ -41,6 +41,17 @@ Genres_Artists = db.Table('Genres_Artists',
   db.Column('genre_id', db.Integer, db.ForeignKey('Genre.id'), primary_key=True)
                           )
 
+Venue_Show = db.Table('Venue_Show',
+  db.Column('venue_id', db.Integer, db.ForeignKey('Venue.id'), primary_key=True),
+  db.Column('show_id', db.Integer, db.ForeignKey('Show.id'), primary_key=True)
+                          )
+
+Artist_Show = db.Table('Artist_Show',
+  db.Column('artist_id', db.Integer, db.ForeignKey('Artist.id'), primary_key=True),
+  db.Column('show_id', db.Integer, db.ForeignKey('Show.id'), primary_key=True)
+                       )
+
+
 class Genre(db.Model):
     __tablename__ = 'Genre'
     id = db.Column(db.Integer, primary_key=True)
@@ -61,6 +72,7 @@ class Venue(db.Model):
     website = db.Column(db.String(120))
     seeking_talent = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
+
     genres_venues = db.relationship('Genre', secondary=Genres_Venue, backref=db.backref('genres_venues', lazy=True))
 
 
@@ -80,18 +92,15 @@ class Artist(db.Model):
     genres_artists = db.relationship('Genre', secondary=Genres_Artists, backref=db.backref('genres_artists', lazy=True))
 
 
-
-
-
-
-
 class Show(db.Model):
   __tablename__ = 'Show'
 
   id = db.Column(db.Integer, primary_key=True)
-  artist_id = db.Column(db.Integer, db.ForeignKey('Artist.id'))
-  venue_id = db.Column(db.Integer, db.ForeignKey('Venue.id'))
+
   start_time = db.Column(db.DateTime)
+
+  venue_show = db.relationship('Venue', secondary=Venue_Show, backref=db.backref('venue_show', lazy=True))
+  artist_show = db.relationship('Artist', secondary=Artist_Show, backref=db.backref('artist_show', lazy=True))
 
 
 # class Genres(db.Model):
@@ -539,7 +548,6 @@ def create_artist_submission():
     # on successful db insert, flash success
     flash('Artist ' + request.form['name'] + ' was successfully listed!')
 
-
   return render_template('pages/home.html')
 
 
@@ -604,14 +612,30 @@ def create_show_submission():
     venue_id = request.form.get('venue_id')
     start_time = request.form.get('start_time')
 
-    show = Show(artist_id=artist_id, venue_id=venue_id, start_time=start_time )
+    show = Show(start_time=start_time )
+
+    a = db.session.query(Artist).filter(Artist.id == artist_id).first()
+    if not a:
+      logging.error('artist doesnt exist!')
+      raise
+
+    v = db.session.query(Venue).filter(Venue.id == venue_id).first()
+
+    if not v:
+      logging.error('venue doesnt exist!')
+      raise
+
+    show.artist_show.append(a)
+    show.venue_show.append(v)
+
     db.session.add(show)
     db.session.commit()
 
-  #except:
-    #error = True
-    #db.session.rollback()
-    #flash('An error occurred. Show could not be listed.')
+  except Exception as e:
+    logging.error(e)
+    error = True
+    db.session.rollback()
+    flash('An error occurred. Show could not be listed.')
   finally:
     db.session.close()
   if not error:
