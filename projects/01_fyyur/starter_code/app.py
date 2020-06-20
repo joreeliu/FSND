@@ -362,7 +362,7 @@ def artists():
 
 @app.route('/artists/search', methods=['POST'])
 def search_artists():
-  # TODO: implement search on artists with partial string search. Ensure it is case-insensitive.
+
   # seach for "A" should return "Guns N Petals", "Matt Quevado", and "The Wild Sax Band".
   # search for "band" should return "The Wild Sax Band".
   search_term = request.form.get('search_term')
@@ -534,7 +534,31 @@ def edit_artist(artist_id):
     "seeking_description": "Looking for shows to perform at in the San Francisco Bay Area!",
     "image_link": "https://images.unsplash.com/photo-1549213783-8284d0336c4f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80"
   }
+
+
   # TODO: populate form with fields from artist with ID <artist_id>
+  res = db.session.query(Artist).filter(Artist.id == artist_id).first()
+  artist = {}
+  artist['id'] = res.id
+  artist['name'] = res.name
+  artist['city'] = res.city
+  artist['state'] = res.state
+  artist['phone'] = res.phone
+  artist['website'] = res.website
+  artist['facebook_link'] = res.facebook_link
+  artist['seeking_venue'] = res.seeking_venue
+  artist['seeking_description'] = res.seeking_description
+  artist['image_link'] = res.image_link
+  artist['genres'] = []
+  for g in res.genres_artists:
+    artist['genres'].append(g.name)
+
+  form.name.data = artist['name']
+  form.city.data = artist['city']
+  form.state.data = artist['state']
+  form.phone.data = artist['phone']
+  form.genres.data = artist['genres']
+  form.facebook_link.data = artist['facebook_link']
   return render_template('forms/edit_artist.html', form=form, artist=artist)
 
 @app.route('/artists/<int:artist_id>/edit', methods=['POST'])
