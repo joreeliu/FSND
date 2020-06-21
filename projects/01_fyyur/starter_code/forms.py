@@ -86,8 +86,11 @@ class VenueForm(Form):
         'phone'
     )
     seeking_talent = BooleanField('seeking_talent')
+    seeking_description = StringField(
+        'seeking_description'
+    )
 
-    website = image_link = StringField(
+    website =  StringField(
         'website'
     )
     image_link = StringField(

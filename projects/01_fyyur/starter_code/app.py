@@ -326,12 +326,14 @@ def show_venue(venue_id):
   data['id'] = venue_.id
   data['name'] = venue_.name
   data['city'] = venue_.city
+  data['address'] = venue_.address
   data['image_link'] = venue_.image_link
   data['phone'] = venue_.phone
   data['state'] = venue_.state
   data['website'] = venue_.website
   data['facebook_link'] = venue_.facebook_link
   data['seeking_talent'] = venue_.seeking_talent
+  data['seeking_description'] = venue_.seeking_description
   data['genres'] = []
   data['past_shows'] = []
   data['upcoming_shows'] = []
@@ -384,6 +386,7 @@ def create_venue_submission():
     phone = request.form.get('phone')
     genres = request.form.getlist('genres')
     seeking_talent = True if request.form.get('seeking_venue') == 'y' else False
+    seeking_description = request.form.get('seeking_description')
     website = request.form.get('website')
     image_link = request.form.get('image_link')
 
@@ -391,7 +394,7 @@ def create_venue_submission():
     facebook_link = request.form.get('facebook_link')
 
     venue = Venue(name=name, city=city, state=state, phone=phone, address=address, facebook_link=facebook_link,
-                  seeking_talent=seeking_talent, website=website, image_link=image_link)
+                  seeking_talent=seeking_talent, seeking_description=seeking_description, website=website, image_link=image_link)
     for genre in genres:
       g = db.session.query(Genre).filter(Genre.name == genre).first()
       if not g:
@@ -750,6 +753,7 @@ def edit_venue(venue_id):
   venue['website'] = res.website
   venue['facebook_link'] = res.facebook_link
   venue['seeking_talent'] = res.seeking_talent
+  venue['seeking_description'] = res.seeking_description
   venue['image_link'] = res.image_link
   venue['genres'] = []
   for g in res.genres_venues:
@@ -761,6 +765,7 @@ def edit_venue(venue_id):
   form.phone.data = venue['phone']
   form.genres.data = venue['genres']
   form.seeking_talent.data = venue['seeking_talent']
+  form.seeking_description.data = venue['seeking_description']
   form.website.data = venue['website']
   form.image_link.data = venue['image_link']
   form.facebook_link.data = venue['facebook_link']
@@ -776,6 +781,7 @@ def edit_venue_submission(venue_id):
   phone = request.form.get('phone')
   genres = request.form.getlist('genres')
   seeking_talent = True if request.form.get('seeking_talent') == 'y' else False
+  seeking_description = request.form.get('seeking_description')
   website = request.form.get('website')
   image_link = request.form.get('image_link')
   facebook_link = request.form.get('facebook_link')
@@ -788,6 +794,7 @@ def edit_venue_submission(venue_id):
     res.phone = phone
     res.facebook_link = facebook_link
     res.seeking_talent = seeking_talent
+    res.seeking_description = seeking_description
     res.website = website
     res.image_link = image_link
     new_genres = []
