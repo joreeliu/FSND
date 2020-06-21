@@ -148,7 +148,7 @@ def venues():
   # DO: replace with real venues data.
   #       num_shows should be aggregated based on number of upcoming shows per venue.
   #Venue.query.join('generes')
-
+  '''
   data = [{
     "city": "San Francisco",
     "state": "CA",
@@ -170,6 +170,7 @@ def venues():
       "num_upcoming_shows": 0,
     }]
   }]
+  '''
   res = db.session.query(Venue).join(Venue.show_venue, isouter=True).all()
   store_result = {}
   data = []
@@ -214,6 +215,25 @@ def search_venues():
       "num_upcoming_shows": 0,
     }]
   }
+
+  search_term = request.form.get('search_term')
+  res = db.session.query(Venue).join(Venue.show_venue, isouter=True).filter(
+    Venue.name.ilike(f'%{search_term}%')).all()
+
+  response = {}
+  response['count'] = len(res)
+  response['data'] = []
+
+  for r in res:
+    tmp_dct = {}
+    tmp_dct['id'] = r.id
+    tmp_dct['name'] = r.name
+    tmp_dct['num_upcoming_shows'] = 0
+    for s in r.venue_show:
+      if s.start_time >= datetime.now():
+        tmp_dct['num_upcoming_shows'] += 1
+    response['data'].append(tmp_dct)
+
   return render_template('pages/search_venues.html', results=response, search_term=request.form.get('search_term', ''))
 
 @app.route('/venues/<int:venue_id>')
