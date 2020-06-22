@@ -1,9 +1,115 @@
 from datetime import datetime
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
-from wtforms.validators import DataRequired, AnyOf, URL
+from wtforms.validators import DataRequired, AnyOf, URL, ValidationError, Length, InputRequired, StopValidation
+import re
+import phonenumbers
 
-class ShowForm(Form):
+
+def isValidPhone(form, field):
+    if (not re.search(r"^[0-9]{3}-[0-9]{3}-[0-9]{4}$", field.data)):
+        raise ValidationError("Invalid phone number.")
+
+
+def isValidPhoneState(form, field):
+    try:
+        input_number = phonenumbers.parse(field.data, 'US')
+        if not phonenumbers.is_possible_number(input_number):
+            raise ValidationError('Invalid phone number.')
+    except Exception as e:
+        raise ValidationError(e.args)
+
+
+def isvalidGenre(form, field):
+    targets = ['Alternative',
+               'Blues',
+               'Classical',
+               'Country',
+               'Electronic',
+               'Folk',
+               'Funk',
+               'Hip-Hop',
+               'Heavy Metal',
+               'Instrumental',
+               'Jazz',
+               'Musical Theatre',
+               'Pop',
+               'Punk',
+               'R&B',
+               'Reggae',
+               'Rock n Roll',
+               'Soul',
+               'Other']
+
+    if not field.data in targets:
+        raise ValidationError('Invalid Genre')
+
+
+
+def isValidState(form, field):
+    targets = ['AL',
+               'AK',
+               'AZ',
+               'AR',
+               'CA',
+               'CO',
+               'CT',
+               'DE',
+               'DC',
+               'FL',
+               'GA',
+               'HI',
+               'ID',
+               'IL',
+               'IN',
+               'IA',
+               'KS',
+               'KY',
+               'LA',
+               'ME',
+               'MT',
+               'NE',
+               'NV',
+               'NH',
+               'NJ',
+               'NM',
+               'NY',
+               'NC',
+               'ND',
+               'OH',
+               'OK',
+               'OR',
+               'MD',
+               'MA',
+               'MI',
+               'MN',
+               'MS',
+               'MO',
+               'PA',
+               'RI',
+               'SC',
+               'SD',
+               'TN',
+               'TX',
+               'UT',
+               'VT',
+               'VA',
+               'WA',
+               'WV',
+               'WI',
+               'WY']
+    if field.data not in targets:
+        raise ValidationError('Invalid State')
+
+
+def isValidFacebook(form, field):
+    if field.data:
+        st = '(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?'
+        if not re.search(st, field.data):
+            raise ValidationError("Invalid facebook link.")
+
+
+class ShowForm(FlaskForm):
     artist_id = StringField(
         'artist_id'
     )
@@ -13,10 +119,11 @@ class ShowForm(Form):
     start_time = DateTimeField(
         'start_time',
         validators=[DataRequired()],
-        default= datetime.today()
+        default=datetime.today()
     )
 
-class VenueForm(Form):
+
+class VenueForm(FlaskForm):
     name = StringField(
         'name', validators=[DataRequired()]
     )
@@ -24,7 +131,7 @@ class VenueForm(Form):
         'city', validators=[DataRequired()]
     )
     state = SelectField(
-        'state', validators=[DataRequired()],
+        'state', validators=[DataRequired(), isValidState],
         choices=[
             ('AL', 'AL'),
             ('AK', 'AK'),
@@ -83,22 +190,21 @@ class VenueForm(Form):
         'address', validators=[DataRequired()]
     )
     phone = StringField(
-        'phone'
+        'phone', [isValidPhone, isValidPhoneState, Length(min=10, max=18)]
     )
     seeking_talent = BooleanField('seeking_talent')
     seeking_description = StringField(
         'seeking_description'
     )
 
-    website =  StringField(
+    website = StringField(
         'website'
     )
     image_link = StringField(
         'image_link'
     )
     genres = SelectMultipleField(
-        # TODO implement enum restriction
-        'genres', validators=[DataRequired()],
+        'genres', validators=[DataRequired(), isvalidGenre],
         choices=[
             ('Alternative', 'Alternative'),
             ('Blues', 'Blues'),
@@ -122,10 +228,11 @@ class VenueForm(Form):
         ]
     )
     facebook_link = StringField(
-        'facebook_link', validators=[URL()]
+        'facebook_link', validators=[isValidFacebook]
     )
 
-class ArtistForm(Form):
+
+class ArtistForm(FlaskForm):
     name = StringField(
         'name', validators=[DataRequired()]
     )
@@ -133,7 +240,7 @@ class ArtistForm(Form):
         'city', validators=[DataRequired()]
     )
     state = SelectField(
-        'state', validators=[DataRequired()],
+        'state', validators=[DataRequired(), isValidState],
         choices=[
             ('AL', 'AL'),
             ('AK', 'AK'),
@@ -189,8 +296,7 @@ class ArtistForm(Form):
         ]
     )
     phone = StringField(
-        # TODO implement validation logic for state
-        'phone'
+        'phone', [isValidPhone, isValidPhoneState, Length(min=10, max=18)]
     )
     seeking_venue = BooleanField('seeking_venue')
     seeking_description = image_link = StringField(
@@ -203,7 +309,6 @@ class ArtistForm(Form):
         'image_link'
     )
     genres = SelectMultipleField(
-        # TODO implement enum restriction
         'genres', validators=[DataRequired()],
         choices=[
             ('Alternative', 'Alternative'),
@@ -229,7 +334,5 @@ class ArtistForm(Form):
     )
     facebook_link = StringField(
         # TODO implement enum restriction
-        'facebook_link', validators=[URL()]
+        'facebook_link', validators=[isValidFacebook]
     )
-
-# TODO IMPLEMENT NEW ARTIST FORM AND NEW SHOW FORM
