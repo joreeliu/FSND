@@ -12,7 +12,8 @@ def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__)
   setup_db(app)
-  
+  CORS(app, resources={r"*": {"origins": "*"}})
+
   '''
   @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
   '''
@@ -20,13 +21,27 @@ def create_app(test_config=None):
   '''
   @TODO: Use the after_request decorator to set Access-Control-Allow
   '''
+  @app.after_request
+  def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,DELETE')
+    return response
 
   '''
   @TODO: 
   Create an endpoint to handle GET requests 
   for all available categories.
   '''
-
+  @app.route('/categories')
+  def get_categories():
+    categories = Category.query.all()
+    result = [category.format() for category in categories]
+    return jsonify({
+      'success': True,
+      'data': result,
+      'total': len(categories)
+    })
 
   '''
   @TODO: 
@@ -40,7 +55,11 @@ def create_app(test_config=None):
   ten questions per page and pagination at the bottom of the screen for three pages.
   Clicking on the page numbers should update the questions. 
   '''
-
+  @app.route('/questions')
+  def get_questions():
+    page = request.args.get('page',1,int)
+    questions = Question.query.all()
+    categories = Category.query.all()
   '''
   @TODO: 
   Create an endpoint to DELETE question using a question ID. 
