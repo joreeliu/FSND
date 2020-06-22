@@ -38,11 +38,16 @@ def create_app(test_config=None):
   @app.route('/categories')
   def get_categories():
     categories = Category.query.all()
+    categories = Category.query.all()
+    all_categories = []
+    for c in categories:
+      if c.type not in all_categories:
+        all_categories.append(c.type)
     result = [category.format() for category in categories]
     return jsonify({
       'success': True,
-      'data': result,
-      'total': len(categories)
+      'total': len(categories),
+      'categories': all_categories
     })
 
   '''
@@ -65,21 +70,22 @@ def create_app(test_config=None):
 
     questions = Question.query.all()
     categories = Category.query.all()
-
-    formatted_questions = [question.format() for question in questions]
-    formatted_categories = [category.format() for category in categories]
+    all_categories = []
+    for c in categories:
+      if c.type not in all_categories:
+        all_categories.append(c.type)
+    formatted_questions = [question.format() for question in questions[start:end]]
+    formatted_categories = [category.format() for category in all_categories]
 
     if formatted_questions == []:
       return abort(400)
 
     return jsonify({
       'success': True,
-      'data': {
-        'question': formatted_questions[start:end],
-        'category': formatted_categories[start:end]
-      },
-      'total': len(questions),
-      'category': 'ALL'
+      'questions': formatted_questions,
+      'current_category': formatted_categories,
+      'total_questions': len(questions),
+      'categories': all_categories
     })
 
   '''
@@ -117,7 +123,7 @@ def create_app(test_config=None):
   def post_questions():
     data = request.get_json()
     try:
-      question = Question(question=data['question'], answer=data['answer'], difficulty=data['difficulty'])
+      question = Question(question=data['question'], answer=data['answer'], difficulty=data['difficulty'], category=data['category'])
       question.insert()
     except:
       return abort(400)
@@ -137,17 +143,17 @@ def create_app(test_config=None):
   @app.route('/questions', methods=['POST'])
   def search_questions_by_term():
     data = request.get_json()
-    search_term = data.get('search_term')
+    search_term = data.get('searchTerm')
 
-    if search_term in data:
-      questions = Question.query.filter(Question.question.ilike(f'%{search_term}')).all()
+    if len(search_term) > 0:
+      questions = Question.query.filter(Question.question.ilike(f'%{search_term}%')).all()
       search_result = [question.format() for question in questions]
     else:
       return abort(400)
     return jsonify({
       'success': True,
-      'data': search_result,
-      'total': len(search_result)
+      'questions': search_result,
+      'total_questions': len(search_result),
     })
   '''
   @TODO: 
@@ -157,15 +163,15 @@ def create_app(test_config=None):
   categories in the left column will cause only questions of that 
   category to be shown. 
   '''
-  @app.route('/category/<int:category_id>/questions')
+  @app.route('/categories/<int:category_id>/questions')
   def search_questions_by_category(category_id):
     questions = Question.query.join(Category, Question.category == Category.id).filter(Category.id == category_id).all()
     search_result = [question.format() for question in questions ]
     return jsonify({
       'success': True,
-      'data': search_result,
-      'total': len(questions),
-      'category': category_id
+      'questions': search_result,
+      'total_questions': len(questions),
+      'current_category': category_id
     })
   '''
   @TODO: 
@@ -238,5 +244,10 @@ def create_app(test_config=None):
     }), 422
 
   return app
+
+if __name__ == '__main__':
+    app=create_app()
+    app.run()
+
 
     

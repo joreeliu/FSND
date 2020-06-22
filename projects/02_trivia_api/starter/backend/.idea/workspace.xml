@@ -21,7 +21,28 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.__init__">
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/flaskr" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/flaskr/__init__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="models" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -43,6 +64,15 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.models" />
+      <item itemvalue="Python.__init__" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.__init__" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -62,29 +92,96 @@
       <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state x="184" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592839620310" />
-    <state width="709" height="206" key="GridCell.Tab.0.bottom" timestamp="1592848438756">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state width="708" height="206" key="GridCell.Tab.0.bottom" timestamp="1592857266786">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state width="709" height="206" key="GridCell.Tab.0.bottom/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592848438756" />
-    <state width="709" height="206" key="GridCell.Tab.0.bottom/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592843310730" />
-    <state width="709" height="206" key="GridCell.Tab.0.center" timestamp="1592848438754">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state width="708" height="206" key="GridCell.Tab.0.bottom/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857266786" />
+    <state width="708" height="206" key="GridCell.Tab.0.center" timestamp="1592857266784">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state width="709" height="206" key="GridCell.Tab.0.center/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592848438754" />
-    <state width="709" height="206" key="GridCell.Tab.0.center/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592843310728" />
-    <state width="709" height="206" key="GridCell.Tab.0.left" timestamp="1592848438753">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state width="708" height="206" key="GridCell.Tab.0.center/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857266784" />
+    <state width="708" height="206" key="GridCell.Tab.0.left" timestamp="1592857266784">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state width="709" height="206" key="GridCell.Tab.0.left/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592848438753" />
-    <state width="709" height="206" key="GridCell.Tab.0.left/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592843310727" />
-    <state width="709" height="206" key="GridCell.Tab.0.right" timestamp="1592848438755">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state width="708" height="206" key="GridCell.Tab.0.left/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857266784" />
+    <state width="708" height="206" key="GridCell.Tab.0.right" timestamp="1592857266785">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state width="709" height="206" key="GridCell.Tab.0.right/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592848438755" />
-    <state width="709" height="206" key="GridCell.Tab.0.right/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592843310729" />
+    <state width="708" height="206" key="GridCell.Tab.0.right/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857266785" />
+    <state width="709" height="257" key="GridCell.Tab.1.bottom" timestamp="1592857021121">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state width="709" height="257" key="GridCell.Tab.1.bottom/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857021121" />
+    <state width="709" height="257" key="GridCell.Tab.1.center" timestamp="1592857021119">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state width="709" height="257" key="GridCell.Tab.1.center/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857021119" />
+    <state width="709" height="257" key="GridCell.Tab.1.left" timestamp="1592857021118">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state width="709" height="257" key="GridCell.Tab.1.left/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857021118" />
+    <state width="709" height="257" key="GridCell.Tab.1.right" timestamp="1592857021120">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state width="709" height="257" key="GridCell.Tab.1.right/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857021120" />
     <state x="389" y="153" width="670" height="676" key="search.everywhere.popup" timestamp="1592848445705">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
     <state x="389" y="153" width="670" height="676" key="search.everywhere.popup/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592848445705" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
+          <line>144</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
+          <line>145</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
+          <line>148</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
+          <line>149</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
+          <line>147</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
+          <line>150</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
+          <line>152</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="categories" language="Python" />
+        <watch expression="categories" />
+        <watch expression="all_categories" />
+        <watch expression="all_categories" />
+        <watch expression="if 'title'" language="Python" />
+        <watch expression="len(search_term) is True" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
