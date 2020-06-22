@@ -188,14 +188,15 @@ def create_app(test_config=None):
   @app.route('/quizzes', methods=['POST'])
   def next_question():
     data = request.get_json()
-    if data['category'] == 0:
+    if (data['quiz_category']['id'] == 0):
       question = Question.query.join(Category, Question.category == Category.id) \
         .filter(ColumnOperators.notin_(Question.id, data['previous_questions'])) \
         .order_by(func.random()) \
         .first()
     else:
+      #question = Question.query.join(Category, Question.category == Category.id).filter(Category.id == int(data['quiz_category']['id'])).all()
       question = Question.query.join(Category, Question.category == Category.id) \
-        .filter(and_(Category.id == data['category'], ColumnOperators.notin_(Question.id, data['previous_questions']))) \
+        .filter(and_(Category.id == int(data['quiz_category']['id']), ColumnOperators.notin_(Question.id, data['previous_questions']))) \
         .order_by(func.random()) \
         .first()
 
@@ -204,7 +205,7 @@ def create_app(test_config=None):
 
     return jsonify({
       'success': True,
-      'data': question.format()
+      'question': question.format()
     })
 
 
