@@ -787,6 +787,9 @@ def edit_venue(venue_id):
     form.image_link.data = venue['image_link']
     form.facebook_link.data = venue['facebook_link']
 
+    if form.validate():
+        flash(form.errors)
+
     return render_template('forms/edit_venue.html', form=form, venue=venue)
 
 
@@ -828,7 +831,11 @@ def edit_venue_submission(venue_id):
     else:
         raise
 
+    form = VenueForm()
     try:
+        if not form.validate():
+            flash(form.errors)
+            raise
         error = False
         db.session.add(res)
         db.session.commit()
@@ -974,6 +981,10 @@ def create_shows():
 def create_show_submission():
     error = False
     try:
+        form = ShowForm(meta={"csrf": False})
+        if not form.validate():
+            flash(form.errors)
+            raise
         # called upon submitting the new artist listing form
         artist_id = request.form.get('artist_id')
         venue_id = request.form.get('venue_id')
