@@ -38,12 +38,10 @@ def create_app(test_config=None):
   @app.route('/categories')
   def get_categories():
     categories = Category.query.all()
-    categories = Category.query.all()
     all_categories = []
     for c in categories:
       if c.type not in all_categories:
         all_categories.append(c.type)
-    result = [category.format() for category in categories]
     return jsonify({
       'success': True,
       'total': len(categories),
@@ -129,7 +127,7 @@ def create_app(test_config=None):
       return abort(400)
     return jsonify({
       'success': True
-    })
+    }),200
   '''
   @TODO: 
   Create a POST endpoint to get questions based on a search term. 
@@ -200,12 +198,12 @@ def create_app(test_config=None):
         .order_by(func.random()) \
         .first()
 
-    if question is None:
-      return abort(400)
+    if question:
+      question = question.format()
 
     return jsonify({
       'success': True,
-      'question': question.format()
+      'question': question
     })
 
 

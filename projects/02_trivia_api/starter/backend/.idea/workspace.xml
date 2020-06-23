@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5a89ef87-0ada-4dd8-a92b-f1e863620071" name="Default Changelist" comment="" />
+    <list default="true" id="5a89ef87-0ada-4dd8-a92b-f1e863620071" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../01_fyyur/starter_code.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../../01_fyyur/starter_code.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskr/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskr/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_flaskr.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_flaskr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trivia.psql" beforeDir="false" afterPath="$PROJECT_DIR$/trivia.psql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/0dbc34644ed702eae55bef7afb393ff7.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/1a469ac5db981b7bbeee17705f30ad6a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/1f6308a4788bb0861c9c7e5b72cece4a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/21e8286a1ba9c319bfa4ce298234bc51.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/502eccd866383128aa33b965b3850e78.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/639021ed89725f1788284be5c7db1bae.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/6e95bcb95e77fec49b41b5bcb587a30b.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/749961fb31bca3efb0acb28439869115.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/7bd15560032b02e1da7301a08fbe4705.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/81e0640d75ffcc2f9540dd90e71f4342.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/966c056537729d56669cfcb36801355b.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/9de843ed6d6f41d33a25219a48ec588e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/a80aca7b2d46f77fb5fe8bae049f12d2.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/b6a16303c0a7c6ec7f8ba0dc554e8b68.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/c389066edb76e6def20fbf17f7369b97.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/ede82a6c4708aaf7c8cf83e54e84b7f0.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/f24bce474357439f3731d2369fe2cec3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/babel-loader/f351668e6f0b92c6b5641a190b199218.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/QuestionView.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/QuestionView.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +46,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.__init__">
+  <component name="RunManager" selected="Python.test_flaskr">
     <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -64,8 +89,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_flaskr" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_flaskr.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.models" />
+      <item itemvalue="Python.test_flaskr" />
       <item itemvalue="Python.__init__" />
     </list>
     <recent_temporary>
@@ -88,49 +135,50 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="184" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592839620310">
-      <screen x="0" y="23" width="1440" height="808" />
+    <state x="184" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592924093034">
+      <screen x="0" y="23" width="1440" height="806" />
     </state>
+    <state x="184" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592924093034" />
     <state x="184" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592839620310" />
-    <state width="1017" height="387" key="GridCell.Tab.0.bottom" timestamp="1592862202941">
+    <state width="1017" height="295" key="GridCell.Tab.0.bottom" timestamp="1592927516480">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
-    <state width="1017" height="387" key="GridCell.Tab.0.bottom/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592862202941" />
+    <state width="1017" height="295" key="GridCell.Tab.0.bottom/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592927516480" />
     <state width="507" height="206" key="GridCell.Tab.0.bottom/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857509816" />
-    <state width="1017" height="387" key="GridCell.Tab.0.center" timestamp="1592862202939">
+    <state width="1017" height="295" key="GridCell.Tab.0.center" timestamp="1592927516477">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
-    <state width="1017" height="387" key="GridCell.Tab.0.center/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592862202939" />
+    <state width="1017" height="295" key="GridCell.Tab.0.center/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592927516477" />
     <state width="507" height="206" key="GridCell.Tab.0.center/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857509815" />
-    <state width="1017" height="387" key="GridCell.Tab.0.left" timestamp="1592862202937">
+    <state width="1017" height="295" key="GridCell.Tab.0.left" timestamp="1592927516476">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
-    <state width="1017" height="387" key="GridCell.Tab.0.left/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592862202937" />
+    <state width="1017" height="295" key="GridCell.Tab.0.left/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592927516476" />
     <state width="507" height="206" key="GridCell.Tab.0.left/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857509814" />
-    <state width="1017" height="387" key="GridCell.Tab.0.right" timestamp="1592862202940">
+    <state width="1017" height="295" key="GridCell.Tab.0.right" timestamp="1592927516478">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
-    <state width="1017" height="387" key="GridCell.Tab.0.right/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592862202940" />
+    <state width="1017" height="295" key="GridCell.Tab.0.right/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592927516478" />
     <state width="507" height="206" key="GridCell.Tab.0.right/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857509815" />
-    <state width="1017" height="387" key="GridCell.Tab.1.bottom" timestamp="1592862499886">
+    <state width="1017" height="295" key="GridCell.Tab.1.bottom" timestamp="1592927485372">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
-    <state width="1017" height="387" key="GridCell.Tab.1.bottom/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592862499886" />
+    <state width="1017" height="295" key="GridCell.Tab.1.bottom/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592927485372" />
     <state width="709" height="257" key="GridCell.Tab.1.bottom/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857021121" />
-    <state width="1017" height="387" key="GridCell.Tab.1.center" timestamp="1592862499883">
+    <state width="1017" height="295" key="GridCell.Tab.1.center" timestamp="1592927485371">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
-    <state width="1017" height="387" key="GridCell.Tab.1.center/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592862499883" />
+    <state width="1017" height="295" key="GridCell.Tab.1.center/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592927485371" />
     <state width="709" height="257" key="GridCell.Tab.1.center/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857021119" />
-    <state width="1017" height="387" key="GridCell.Tab.1.left" timestamp="1592862499881">
+    <state width="1017" height="295" key="GridCell.Tab.1.left" timestamp="1592927485371">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
-    <state width="1017" height="387" key="GridCell.Tab.1.left/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592862499881" />
+    <state width="1017" height="295" key="GridCell.Tab.1.left/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592927485371" />
     <state width="709" height="257" key="GridCell.Tab.1.left/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857021118" />
-    <state width="1017" height="387" key="GridCell.Tab.1.right" timestamp="1592862499884">
+    <state width="1017" height="295" key="GridCell.Tab.1.right" timestamp="1592927485372">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
-    <state width="1017" height="387" key="GridCell.Tab.1.right/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592862499884" />
+    <state width="1017" height="295" key="GridCell.Tab.1.right/0.23.1440.806/1440.23.1920.1057@0.23.1440.806" timestamp="1592927485372" />
     <state width="709" height="257" key="GridCell.Tab.1.right/0.23.1440.808/1440.23.1920.1057@0.23.1440.808" timestamp="1592857021120" />
     <state x="389" y="153" width="670" height="676" key="search.everywhere.popup" timestamp="1592848445705">
       <screen x="0" y="23" width="1440" height="806" />
@@ -147,43 +195,38 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
-          <line>189</line>
-          <option name="timeStamp" value="19" />
+          <line>203</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
-          <line>190</line>
-          <option name="timeStamp" value="20" />
+          <line>188</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
-          <line>202</line>
-          <option name="timeStamp" value="25" />
+          <url>file://$PROJECT_DIR$/test_flaskr.py</url>
+          <line>55</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
-          <line>195</line>
-          <option name="timeStamp" value="26" />
+          <url>file://$PROJECT_DIR$/test_flaskr.py</url>
+          <line>57</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
-          <line>197</line>
-          <option name="timeStamp" value="28" />
+          <url>file://$PROJECT_DIR$/test_flaskr.py</url>
+          <line>80</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
-          <line>191</line>
-          <option name="timeStamp" value="29" />
+          <url>file://$PROJECT_DIR$/test_flaskr.py</url>
+          <line>82</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
-          <line>205</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/flaskr/__init__.py</url>
-          <line>196</line>
-          <option name="timeStamp" value="31" />
+          <url>file://$PROJECT_DIR$/test_flaskr.py</url>
+          <line>81</line>
+          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -200,7 +243,10 @@
         <watch expression="len(data['quiz_category']['id']) &gt; 0" language="Python" />
         <watch expression="question" />
         <watch expression="data['quiz_category']['id'] == '0'" language="Python" />
-        <watch expression="question" />
+        <watch expression="question" language="Python" />
+        <watch expression="json.loads(res.data)" language="Python" />
+        <watch expression="data = json.loads()" language="Python" />
+        <watch expression="res.status_code" />
       </configuration>
     </watches-manager>
   </component>
