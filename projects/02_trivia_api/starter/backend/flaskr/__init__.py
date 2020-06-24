@@ -132,7 +132,8 @@ def create_app(test_config=None):
                 difficulty=data['difficulty'],
                 category=data['category'])
             question.insert()
-        except BaseException:
+        except BaseException as e:
+            print(e)
             return abort(400)
         return jsonify({
             'success': True
