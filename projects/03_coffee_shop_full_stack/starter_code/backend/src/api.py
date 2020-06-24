@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, abort
+from flask import Flask, request, jsonify, abort, render_template
 from sqlalchemy import exc
 import json
 from flask_cors import CORS
@@ -16,7 +16,7 @@ CORS(app)
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
 '''
-db_drop_and_create_all()
+#db_drop_and_create_all()
 
 ## ROUTES
 '''
@@ -44,7 +44,15 @@ def get_drinks():
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
-
+@app.route("/drinks-detail")
+@requires_auth("get:drinks-detail")
+def get_drink_detail(jwt):
+    drinks = list(map(Drink.long, Drink.query.all()))
+    result = {
+        "success": True,
+        "drinks": drinks
+    }
+    return jsonify(result)
 
 '''
 @TODO implement endpoint
@@ -55,7 +63,19 @@ def get_drinks():
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
         or appropriate status code indicating reason for failure
 '''
-
+@app.route("/drinks", methods=['POST'])
+@requires_auth("post:drinks")
+def add_drinks(jwt):
+    if request.data:
+        new_drink_data = json.loads(request.data.decode('utf-8'))
+        new_drink = Drink(title=new_drink_data['title'], recipe=json.dumps(new_drink_data['recipe']))
+        Drink.insert(new_drink)
+        drinks = list(map(Drink.long, Drink.query.all()))
+        result = {
+            "success": True,
+            "drinks": drinks
+        }
+        return jsonify(result)
 
 '''
 @TODO implement endpoint
@@ -69,6 +89,20 @@ def get_drinks():
         or appropriate status code indicating reason for failure
 '''
 
+@app.route("/drinks/<drink_id>", methods=['PATCH'])
+@requires_auth("patch:drinks")
+def patch_drinks(jwt, drink_id):
+    update_drink_data = json.loads(request.data.decode('utf-8'))
+    update_drink = Drink.query.get(drink_id)
+    Drink.update(update_drink)
+    drinks = list(map(Drink.long, Drink.query.all()))
+    result = {
+        "success": True,
+        "drinks": drinks
+    }
+    return jsonify(result)
+
+
 
 '''
 @TODO implement endpoint
@@ -80,7 +114,17 @@ def get_drinks():
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
-
+@app.route("/drinks/<drink_id>", methods=['DELETE'])
+@requires_auth("delete:drinks")
+def delete_drinks(jwt, drink_id):
+    drink_data = Drink.query.get(drink_id)
+    Drink.delete(drink_data)
+    drinks = list(map(Drink.long, Drink.query.all()))
+    result = {
+        "success": True,
+        "drinks": drinks
+    }
+    return jsonify(result)
 
 ## Error Handling
 '''
@@ -109,12 +153,21 @@ def unprocessable(error):
 @TODO implement error handler for 404
     error handler should conform to general task above 
 '''
-
+@app.errorhandler(404)
+def not_found_error(error):
+    return jsonify({
+                    "success": False,
+                    "error": 404,
+                    "message": "resource not found"
+                    }), 404
 
 '''
 @TODO implement error handler for AuthError
     error handler should conform to general task above 
 '''
+@app.errorhandler()
+def auth_error(error):
+    return jsonify(error.error), error.status_code
 
 if __name__ == '__main__':
     app.run()
