@@ -5,9 +5,9 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = 'zheyu.auth0.com'
+AUTH0_DOMAIN = 'zheyu.us.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'coffee'
+API_AUDIENCE = 'http://localhost:5000'
 
 ## AuthError Exception
 '''
