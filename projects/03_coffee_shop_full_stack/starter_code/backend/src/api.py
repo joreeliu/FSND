@@ -94,7 +94,8 @@ def add_drinks(jwt):
 def patch_drinks(jwt, drink_id):
     update_drink_data = json.loads(request.data.decode('utf-8'))
     update_drink = Drink.query.get(drink_id)
-    Drink.update(update_drink)
+    new_drink = Drink(title=update_drink_data['title'], recipe=json.dumps(update_drink_data['recipe']))
+    Drink.UPDATE(update_drink)
     drinks = list(map(Drink.long, Drink.query.all()))
     result = {
         "success": True,
@@ -165,9 +166,7 @@ def not_found_error(error):
 @TODO implement error handler for AuthError
     error handler should conform to general task above 
 '''
-@app.errorhandler()
-def auth_error(error):
-    return jsonify(error.error), error.status_code
+
 
 if __name__ == '__main__':
     app.run()
