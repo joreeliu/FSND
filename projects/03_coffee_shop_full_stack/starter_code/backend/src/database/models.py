@@ -101,6 +101,7 @@ class Drink(db.Model):
             drink.update()
     '''
     def update(self):
+        db.session.add(self)
         db.session.commit()
 
     def __repr__(self):

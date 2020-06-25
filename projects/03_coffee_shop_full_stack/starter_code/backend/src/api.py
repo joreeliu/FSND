@@ -6,6 +6,7 @@ from flask_cors import CORS
 
 from database.models import db_drop_and_create_all, setup_db, Drink
 from auth.auth import AuthError, requires_auth
+import logging
 
 app = Flask(__name__)
 setup_db(app)
@@ -93,15 +94,31 @@ def add_drinks(jwt):
 @requires_auth("patch:drinks")
 def patch_drinks(jwt, drink_id):
     update_drink_data = json.loads(request.data.decode('utf-8'))
-    update_drink = Drink.query.get(drink_id)
-    new_drink = Drink(title=update_drink_data['title'], recipe=json.dumps(update_drink_data['recipe']))
-    new_drink.update()
+    update_drink = None
+    try:
+        update_drink = Drink.query.get(drink_id)
+    except Exception as e:
+        logging.error(e)
+        abort(404)
+    if not update_drink:
+        abort(404)
+    try:
+        update_drink.title = update_drink_data['title']
+        update_drink.recipe = json.dumps(update_drink_data['recipe'])
+    except Exception as e:
+        logging.error(e)
+        abort(400)
+    try:
+        update_drink.update()
+    except Exception as e:
+        logging.error(e)
+        abort(422)
     drinks = list(map(Drink.long, Drink.query.all()))
     result = {
         "success": True,
         "drinks": drinks
     }
-    return jsonify(result)
+    return jsonify(result), 200
 
 
 
@@ -165,6 +182,14 @@ def auth_error(error):
         'error': 401,
         'message': 'Not authorized'
     }), 401
+
+
+@app.errorhandler(400)
+def page_not_found(e):
+    return jsonify({
+        'success': False,
+        'data': 'Bad Request'
+    }), 400
 
 
 if __name__ == '__main__':
