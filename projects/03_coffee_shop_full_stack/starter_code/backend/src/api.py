@@ -135,14 +135,25 @@ def patch_drinks(jwt, drink_id):
 @app.route("/drinks/<drink_id>", methods=['DELETE'])
 @requires_auth("delete:drinks")
 def delete_drinks(jwt, drink_id):
-    drink_data = Drink.query.get(drink_id)
-    Drink.delete(drink_data)
+    drink_data = None
+    try:
+        drink_data = Drink.query.get(drink_id)
+    except Exception as e:
+        logging.error(e)
+        abort(404)
+    if not drink_data:
+        abort(404)
+    try:
+        Drink.delete(drink_data)
+    except Exception as e:
+        logging.error(e)
+        abort(422)
     drinks = list(map(Drink.long, Drink.query.all()))
     result = {
         "success": True,
         "drinks": drinks
     }
-    return jsonify(result)
+    return jsonify(result), 200
 
 ## Error Handling
 '''
